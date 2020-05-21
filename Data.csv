@@ -1,0 +1,30 @@
+﻿Name,Position,City,Post_available,City,City_ID,City_name
+Tom,Manager,0,Manager,0,0,Victoria
+Henry,Developer,1,Developer,0,1,Vancover
+Bush,Engineer,1,Developer,4,2,Mumbai
+Harry,Project Lead,2,Manager,2,3,Delhi
+Simon,Team Lead,2,Engineer,7,4,Pune
+Ram,Developer,1,CEO,6,5,Ottawa
+Bharat,CEO,3,Engineer,1,6,Torronto
+Laxman,CTO,4,COO,5,7,New York
+Krishna,Waiter,2,Team Lead,6,8,Los Angeles
+Harshal,Content Writer,6,Developer,3,,
+Rommy,Devops,5,Engineer,8,,
+Josh,COO,3,Project Lead,2,,
+Jelly,Developer,2,Engineer,4,,
+Akash,Developer,5,Developer,3,,
+Ritul,Engineer,7,Engineer,7,,
+Daisy,Team Lead,4,CEO,8,,
+Rosie,Engineer,2,COO,4,,
+Alexa,CEO,1,Content Writer,3,,
+Talia,Content Writer,4,Developer,6,,
+Sita,Manager,6,Team Lead,3,,
+Erik,Manager,7,Project Lead,2,,
+Ethan,Project Lead,5,Engineer,3,,
+Katrina,Public Relation,4,Engineer,5,,
+Deepika,Developer,3,Developer,7,,
+John,Devops,2,Project Lead,6,,
+Jerry,COO,1,Project Lead,3,,
+Elon,Team Lead,5,Developer,1,,
+Angelina,Engineer,7,Engineer,2,,
+Selena,Manager,5,Manager,3,,
