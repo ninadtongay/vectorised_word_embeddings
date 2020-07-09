@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>NLP_Database_Fusion_Single_Words (1)</title>
+<title>NLP_Database_Fusion_Single_Words</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13084,10 +13084,11 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Importing all libraries</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="ch">#!pip install faker</span>
+<span class="c1">#Importing all libraries</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">sqlite3</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -13096,6 +13097,8 @@ div#notebook {
 <span class="kn">import</span> <span class="nn">io</span>
 <span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="k">import</span> <span class="n">PCA</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">repeat</span>
+<span class="kn">from</span> <span class="nn">faker</span> <span class="k">import</span> <span class="n">Faker</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">shuffle</span>
 
 
 <span class="c1">#Optional Libraries</span>
@@ -13133,7 +13136,7 @@ div#notebook {
 <p>Word Embeddings part
 (Pre-trained embeddings used: Glove)</p>
 <hr>
-<p>Reducing the vector dimensions using PCA</p>
+<p>Reducing the vector dimensions unsing PCA</p>
 
 </div>
 </div>
@@ -13143,7 +13146,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Reducing Glove word embeddings from 50 to 10 dimensions</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This function is present in python program file, due to location issues I have maintained one copy here as well</span>
+<span class="c1">#Reducing Glove word embeddings from 50 to 10 dimensions</span>
 <span class="n">Glove</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/content/drive/My Drive/NLP_Data/glove.6B.50d.txt&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
 <span class="c1">#f = open(&#39;/content/drive/mydrive/glove.6B.50d.txt&#39;)</span>
@@ -13242,10 +13246,11 @@ Please check pca_embed2.txt file
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Function to get 10 dimensional vector from txt file</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This function is present in python program file, due to location issues I have maintained one copy here as well</span>
+<span class="c1">#Function to get 10 dimensional vector from txt file</span>
 <span class="k">def</span> <span class="nf">get_vector</span><span class="p">(</span><span class="n">given_word</span><span class="p">):</span>
   <span class="n">Glove</span> <span class="o">=</span> <span class="p">{}</span>
   <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/content/drive/My Drive/NLP_Data/pca_embed2.txt&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -13270,7 +13275,7 @@ Please check pca_embed2.txt file
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Getting Vectors for available posts</span>
@@ -13306,10 +13311,12 @@ Please check pca_embed2.txt file
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Defining Cosine Similarity Function</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This function is present in python program file, due to location issues I have maintained one copy here as well</span>
+
+<span class="c1">#Defining Cosine Similarity Function</span>
 <span class="k">def</span> <span class="nf">cos_sim</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Takes 2 vectors a, b and returns the cosine similarity according </span>
 <span class="sd">    to the definition of the dot product</span>
@@ -13352,112 +13359,119 @@ Please check pca_embed2.txt file
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Database creation part</p>
 <hr>
-<ol>
-<li>Reading data with Pandas</li>
-</ol>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Opening &amp; Reading CSV files into pandas dataframe</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This function is present in python program file, due to location issues I have maintained one copy here as well</span>
+<span class="c1">#Generating data</span>
+<span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+  <span class="c1">#Getting fake names</span>
+  <span class="n">fake</span> <span class="o">=</span> <span class="n">Faker</span><span class="p">()</span>
+  <span class="n">name_df</span> <span class="o">=</span> <span class="p">[</span><span class="n">fake</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+  <span class="n">name_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">((</span><span class="n">name_df</span><span class="p">),</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
 
-<span class="c1">#Dataframe with Person name, Applicable Post and City</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span> <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;/content/drive/My Drive/NLP_Data/table1_name_post_city.csv&#39;</span><span class="p">)</span>   
-<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span><span class="s1">&#39;pi1&#39;</span><span class="p">,</span><span class="s1">&#39;pi2&#39;</span><span class="p">,</span><span class="s1">&#39;pi3&#39;</span><span class="p">,</span><span class="s1">&#39;pi4&#39;</span><span class="p">,</span><span class="s1">&#39;pi5&#39;</span><span class="p">,</span><span class="s1">&#39;pi6&#39;</span><span class="p">,</span><span class="s1">&#39;pi7&#39;</span><span class="p">,</span><span class="s1">&#39;pi8&#39;</span><span class="p">,</span><span class="s1">&#39;pi9&#39;</span><span class="p">,</span><span class="s1">&#39;pi10&#39;</span><span class="p">,</span><span class="s1">&#39;ci1&#39;</span><span class="p">,</span><span class="s1">&#39;ci2&#39;</span><span class="p">,</span><span class="s1">&#39;ci3&#39;</span><span class="p">,</span><span class="s1">&#39;ci4&#39;</span><span class="p">,</span><span class="s1">&#39;ci5&#39;</span><span class="p">,</span><span class="s1">&#39;ci6&#39;</span><span class="p">,</span><span class="s1">&#39;ci7&#39;</span><span class="p">,</span><span class="s1">&#39;ci8&#39;</span><span class="p">,</span><span class="s1">&#39;ci9&#39;</span><span class="p">,</span><span class="s1">&#39;ci10&#39;</span><span class="p">])</span>
-<span class="c1">#print(df1)</span>
+  <span class="c1">#Dataframe with Vectors for respective posts and post</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span> <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;/content/drive/My Drive/NLP_Data/table3_vectors_for_posts.csv&#39;</span><span class="p">)</span>   
+  <span class="n">orig_post_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pi1&#39;</span><span class="p">,</span><span class="s1">&#39;pi2&#39;</span><span class="p">,</span><span class="s1">&#39;pi3&#39;</span><span class="p">,</span><span class="s1">&#39;pi4&#39;</span><span class="p">,</span><span class="s1">&#39;pi5&#39;</span><span class="p">,</span><span class="s1">&#39;pi6&#39;</span><span class="p">,</span><span class="s1">&#39;pi7&#39;</span><span class="p">,</span><span class="s1">&#39;pi8&#39;</span><span class="p">,</span><span class="s1">&#39;pi9&#39;</span><span class="p">,</span><span class="s1">&#39;pi10&#39;</span><span class="p">,</span><span class="s1">&#39;post&#39;</span><span class="p">])</span>
+  <span class="n">post_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pi1&#39;</span><span class="p">,</span><span class="s1">&#39;pi2&#39;</span><span class="p">,</span><span class="s1">&#39;pi3&#39;</span><span class="p">,</span><span class="s1">&#39;pi4&#39;</span><span class="p">,</span><span class="s1">&#39;pi5&#39;</span><span class="p">,</span><span class="s1">&#39;pi6&#39;</span><span class="p">,</span><span class="s1">&#39;pi7&#39;</span><span class="p">,</span><span class="s1">&#39;pi8&#39;</span><span class="p">,</span><span class="s1">&#39;pi9&#39;</span><span class="p">,</span><span class="s1">&#39;pi10&#39;</span><span class="p">])</span>
+  <span class="c1">#print(df3)</span>
 
-<span class="c1">#Dataframe with Post Available and City</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span> <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;/content/drive/My Drive/NLP_Data/table2_vectors_for_post_city.csv&#39;</span><span class="p">)</span>
-<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pi1&#39;</span><span class="p">,</span><span class="s1">&#39;pi2&#39;</span><span class="p">,</span><span class="s1">&#39;pi3&#39;</span><span class="p">,</span><span class="s1">&#39;pi4&#39;</span><span class="p">,</span><span class="s1">&#39;pi5&#39;</span><span class="p">,</span><span class="s1">&#39;pi6&#39;</span><span class="p">,</span><span class="s1">&#39;pi7&#39;</span><span class="p">,</span><span class="s1">&#39;pi8&#39;</span><span class="p">,</span><span class="s1">&#39;pi9&#39;</span><span class="p">,</span><span class="s1">&#39;pi10&#39;</span><span class="p">,</span><span class="s1">&#39;ci1&#39;</span><span class="p">,</span><span class="s1">&#39;ci2&#39;</span><span class="p">,</span><span class="s1">&#39;ci3&#39;</span><span class="p">,</span><span class="s1">&#39;ci4&#39;</span><span class="p">,</span><span class="s1">&#39;ci5&#39;</span><span class="p">,</span><span class="s1">&#39;ci6&#39;</span><span class="p">,</span><span class="s1">&#39;ci7&#39;</span><span class="p">,</span><span class="s1">&#39;ci8&#39;</span><span class="p">,</span><span class="s1">&#39;ci9&#39;</span><span class="p">,</span><span class="s1">&#39;ci10&#39;</span><span class="p">])</span>
-<span class="c1">#print(df2)</span>
+  <span class="c1">#Dataframe with Vectors for respective cities and city</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span> <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;/content/drive/My Drive/NLP_Data/table4_vectors_for_cities.csv&#39;</span><span class="p">)</span>   
+  <span class="n">orig_city_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ci1&#39;</span><span class="p">,</span><span class="s1">&#39;ci2&#39;</span><span class="p">,</span><span class="s1">&#39;ci3&#39;</span><span class="p">,</span><span class="s1">&#39;ci4&#39;</span><span class="p">,</span><span class="s1">&#39;ci5&#39;</span><span class="p">,</span><span class="s1">&#39;ci6&#39;</span><span class="p">,</span><span class="s1">&#39;ci7&#39;</span><span class="p">,</span><span class="s1">&#39;ci8&#39;</span><span class="p">,</span><span class="s1">&#39;ci9&#39;</span><span class="p">,</span><span class="s1">&#39;ci10&#39;</span><span class="p">,</span><span class="s1">&#39;city&#39;</span><span class="p">])</span>
+  <span class="n">city_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ci1&#39;</span><span class="p">,</span><span class="s1">&#39;ci2&#39;</span><span class="p">,</span><span class="s1">&#39;ci3&#39;</span><span class="p">,</span><span class="s1">&#39;ci4&#39;</span><span class="p">,</span><span class="s1">&#39;ci5&#39;</span><span class="p">,</span><span class="s1">&#39;ci6&#39;</span><span class="p">,</span><span class="s1">&#39;ci7&#39;</span><span class="p">,</span><span class="s1">&#39;ci8&#39;</span><span class="p">,</span><span class="s1">&#39;ci9&#39;</span><span class="p">,</span><span class="s1">&#39;ci10&#39;</span><span class="p">])</span>
+  <span class="c1">#print(df4)</span>
 
-<span class="c1">#Dataframe with Vectors for respective posts and post</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span> <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;/content/drive/My Drive/NLP_Data/table3_vectors_for_posts.csv&#39;</span><span class="p">)</span>   
-<span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pi1&#39;</span><span class="p">,</span><span class="s1">&#39;pi2&#39;</span><span class="p">,</span><span class="s1">&#39;pi3&#39;</span><span class="p">,</span><span class="s1">&#39;pi4&#39;</span><span class="p">,</span><span class="s1">&#39;pi5&#39;</span><span class="p">,</span><span class="s1">&#39;pi6&#39;</span><span class="p">,</span><span class="s1">&#39;pi7&#39;</span><span class="p">,</span><span class="s1">&#39;pi8&#39;</span><span class="p">,</span><span class="s1">&#39;pi9&#39;</span><span class="p">,</span><span class="s1">&#39;pi10&#39;</span><span class="p">,</span><span class="s1">&#39;post&#39;</span><span class="p">])</span>
-<span class="c1">#print(df3)</span>
+  <span class="c1">#Shuffling and storing the data n times</span>
+  <span class="n">new_city_df</span> <span class="o">=</span> <span class="n">city_df</span>
+  <span class="n">new_post_df</span> <span class="o">=</span> <span class="n">post_df</span>
 
-<span class="c1">#Dataframe with Vectors for respective cities and city</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span> <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;/content/drive/My Drive/NLP_Data/table4_vectors_for_cities.csv&#39;</span><span class="p">)</span>   
-<span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ci1&#39;</span><span class="p">,</span><span class="s1">&#39;ci2&#39;</span><span class="p">,</span><span class="s1">&#39;ci3&#39;</span><span class="p">,</span><span class="s1">&#39;ci4&#39;</span><span class="p">,</span><span class="s1">&#39;ci5&#39;</span><span class="p">,</span><span class="s1">&#39;ci6&#39;</span><span class="p">,</span><span class="s1">&#39;ci7&#39;</span><span class="p">,</span><span class="s1">&#39;ci8&#39;</span><span class="p">,</span><span class="s1">&#39;ci9&#39;</span><span class="p">,</span><span class="s1">&#39;ci10&#39;</span><span class="p">,</span><span class="s1">&#39;city&#39;</span><span class="p">])</span>
-<span class="c1">#print(df4)</span>
-</pre></div>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">7</span><span class="p">)):</span>
+    <span class="n">city_df</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">city_df</span><span class="p">)</span>
+    <span class="n">post_df</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">post_df</span><span class="p">)</span>
+    <span class="n">new_city_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">new_city_df</span><span class="p">,</span> <span class="n">city_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">new_post_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">new_post_df</span><span class="p">,</span> <span class="n">post_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-    </div>
-</div>
-</div>
+  <span class="c1">#Getting n number of data</span>
+  <span class="n">n_city_df</span><span class="o">=</span> <span class="n">new_city_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+  <span class="n">n_post_df</span><span class="o">=</span> <span class="n">new_post_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Database creation part</p>
-<hr>
-<ol>
-<li>Creating Sqlite database</li>
-</ol>
+  <span class="c1">#Resetting index</span>
+  <span class="n">n_city_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">n_post_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Creating database</span>
-<span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;position_city_database_with_embeddings.db&quot;</span><span class="p">)</span> 
-<span class="n">crsr</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
+  <span class="c1">#Dataframe ready for table 1 with name, post and city word embeddings</span>
+  <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">name_df</span><span class="p">,</span><span class="n">n_post_df</span><span class="p">,</span><span class="n">n_city_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="c1">#print(df1)</span>
 
-<span class="c1">#Comment the table creation and insertion of data into the table if the database is already created once.</span>
+  <span class="c1">#Shuffling and resetting index for table 2 </span>
+  <span class="n">new_city_df</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">n_city_df</span><span class="p">)</span>
+  <span class="n">new_post_df</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">n_post_df</span><span class="p">)</span>
+  <span class="n">new_city_df</span><span class="o">=</span> <span class="n">new_city_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+  <span class="n">new_post_df</span><span class="o">=</span> <span class="n">new_post_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+  <span class="n">new_city_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">new_post_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  
+  <span class="c1">#Dataframe ready for table 2 with post and city</span>
+  <span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">new_post_df</span><span class="p">,</span><span class="n">new_city_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="c1">#print(df2)</span>
 
-<span class="c1">#Creating table1 with name, embeddings of post, and embeddings of city</span>
-<span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE name_post_city (NAME nvarchar(50),pi1 float,pi2 float,pi3 float,pi4 float,pi5 float,pi6 float,pi7 float,pi8 float,pi9 float,pi10 float, ci1 float,ci2 float,ci3 float,ci4 float,ci5 float,ci6 float,ci7 float,ci8 float,ci9 float,ci10 float, FOREIGN KEY (ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10) REFERENCES em_city_name(ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10), FOREIGN KEY (pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10) REFERENCES em_post_city(pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10))&#39;</span><span class="p">)</span>
-<span class="n">df1</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;name_post_city&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT * FROM name_post_city&#39;&#39;&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Table 1: Name_Post_City Data&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">crsr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="n">row</span><span class="p">)</span>
+  <span class="c1">#Creating database</span>
+  <span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;position_city_database_with_embeddings.db&quot;</span><span class="p">)</span> 
+  <span class="n">crsr</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
 
-<span class="c1">#Creating table2 with embeddings of post and embeddings of city</span>
-<span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE post_city (ci1 float,ci2 float,ci3 float,ci4 float,ci5 float,ci6 float,ci7 float,ci8 float,ci9 float,ci10 float,post nvarchar(50), FOREIGN KEY (ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10) REFERENCES em_city_name(ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10))&#39;</span><span class="p">)</span>
-<span class="n">df2</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;post_city&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Table 2: Post_City Data&quot;</span><span class="p">)</span>
-<span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT * FROM post_city&#39;&#39;&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">crsr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="n">row</span><span class="p">)</span>
+  <span class="c1">#Comment the table creation and insertion of data into the table if the database is already created once.</span>
+  <span class="c1">#Creating table1 with name, embeddings of post, and embeddings of city</span>
+  <span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE name_post_city (NAME nvarchar(50),pi1 float,pi2 float,pi3 float,pi4 float,pi5 float,pi6 float,pi7 float,pi8 float,pi9 float,pi10 float, ci1 float,ci2 float,ci3 float,ci4 float,ci5 float,ci6 float,ci7 float,ci8 float,ci9 float,ci10 float, FOREIGN KEY (ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10) REFERENCES em_city_name(ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10), FOREIGN KEY (pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10) REFERENCES em_post_city(pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10))&#39;</span><span class="p">)</span>
+  <span class="n">df1</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;name_post_city&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+  <span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT * FROM name_post_city&#39;&#39;&#39;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Table 1: Name_Post_City Data&quot;</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">crsr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
+      <span class="nb">print</span> <span class="p">(</span><span class="n">row</span><span class="p">)</span>
 
-<span class="c1">#Creating table3 with embeddings of post and name of posts</span>
-<span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE em_post_name (pi1 float,pi2 float,pi3 float,pi4 float,pi5 float,pi6 float,pi7 float,pi8 float,pi9 float,pi10 float, post nvarchar(50), PRIMARY KEY(pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10))&#39;</span><span class="p">)</span>
-<span class="n">df3</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;em_post_name&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Table 3: Em_Post_Name Data&quot;</span><span class="p">)</span>
-<span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT * FROM em_post_name&#39;&#39;&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">crsr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="n">row</span><span class="p">)</span>
+  <span class="c1">#Creating table2 with embeddings of post and embeddings of city</span>
+  <span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE post_city (pi1 float,pi2 float,pi3 float,pi4 float,pi5 float,pi6 float,pi7 float,pi8 float,pi9 float,pi10 float, ci1 float,ci2 float,ci3 float,ci4 float,ci5 float,ci6 float,ci7 float,ci8 float,ci9 float,ci10 float, FOREIGN KEY (ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10) REFERENCES em_city_name(ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10), FOREIGN KEY (pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10) REFERENCES em_post_city(pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10))&#39;</span><span class="p">)</span>
+  <span class="n">df2</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;post_city&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Table 2: Post_City Data&quot;</span><span class="p">)</span>
+  <span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT * FROM post_city&#39;&#39;&#39;</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">crsr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
+      <span class="nb">print</span> <span class="p">(</span><span class="n">row</span><span class="p">)</span>
 
-<span class="c1">#Creating table4 with embeddings of city and name of cities</span>
-<span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE em_city_name (ci1 float,ci2 float,ci3 float,ci4 float,ci5 float,ci6 float,ci7 float,ci8 float,ci9 float,ci10 float, city nvarchar(50), PRIMARY KEY(ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10))&#39;</span><span class="p">)</span>
-<span class="n">df4</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;em_city_name&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Table 4: Em_City_Name Data&quot;</span><span class="p">)</span>
-<span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT * FROM em_city_name&#39;&#39;&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">crsr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="n">row</span><span class="p">)</span>
+  <span class="c1">#Creating table3 with embeddings of post and name of posts</span>
+  <span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE em_post_name (pi1 float,pi2 float,pi3 float,pi4 float,pi5 float,pi6 float,pi7 float,pi8 float,pi9 float,pi10 float, post nvarchar(50), PRIMARY KEY(pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10))&#39;</span><span class="p">)</span>
+  <span class="n">orig_post_df</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;em_post_name&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Table 3: Em_Post_Name Data&quot;</span><span class="p">)</span>
+  <span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT * FROM em_post_name&#39;&#39;&#39;</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">crsr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
+      <span class="nb">print</span> <span class="p">(</span><span class="n">row</span><span class="p">)</span>
 
-<span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+  <span class="c1">#Creating table4 with embeddings of city and name of cities</span>
+  <span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE em_city_name (ci1 float,ci2 float,ci3 float,ci4 float,ci5 float,ci6 float,ci7 float,ci8 float,ci9 float,ci10 float, city nvarchar(50), PRIMARY KEY(ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10))&#39;</span><span class="p">)</span>
+  <span class="n">orig_city_df</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;em_city_name&#39;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Table 4: Em_City_Name Data&quot;</span><span class="p">)</span>
+  <span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT * FROM em_city_name&#39;&#39;&#39;</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">crsr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
+      <span class="nb">print</span> <span class="p">(</span><span class="n">row</span><span class="p">)</span>
 
-<span class="c1">#Execute the following line to print all the SQL queries when executed</span>
-<span class="c1">#connection.set_trace_callback(print)</span>
+  <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
 
-<span class="c1">#Incase you want to drop all tables:</span>
-<span class="c1">#crsr.execute(&#39;DROP TABLE name_post_city&#39;)</span>
-<span class="c1">#crsr.execute(&#39;DROP TABLE post_city&#39;)</span>
-<span class="c1">#crsr.execute(&#39;DROP TABLE em_post_name&#39;)</span>
-<span class="c1">#crsr.execute(&#39;DROP TABLE em_city_name&#39;)</span>
-<span class="c1">#connection.commit()</span>
+  <span class="c1">#Execute the following line to print all the SQL queries when executed</span>
+  <span class="c1">#connection.set_trace_callback(print)</span>
+
+  <span class="c1">#Incase you want to drop all tables:</span>
+  <span class="c1">#crsr.execute(&#39;DROP TABLE name_post_city&#39;)</span>
+  <span class="c1">#crsr.execute(&#39;DROP TABLE post_city&#39;)</span>
+  <span class="c1">#crsr.execute(&#39;DROP TABLE em_post_name&#39;)</span>
+  <span class="c1">#crsr.execute(&#39;DROP TABLE em_city_name&#39;)</span>
+  <span class="c1">#connection.commit()  </span>
+
+<span class="n">get_data</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13475,49 +13489,158 @@ Please check pca_embed2.txt file
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Table 1: Name_Post_City Data
-(&#39;Tom&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
-(&#39;Henry&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
-(&#39;Bush&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
-(&#39;Ram&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
-(&#39;Bharat&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
-(&#39;Laxman&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
-(&#39;Krishna&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
-(&#39;Josh&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
-(&#39;Jelly&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
-(&#39;Akash&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
-(&#39;Ritul&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
-(&#39;Rosie&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
-(&#39;Alexa&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
-(&#39;Sita&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
-(&#39;Erik&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
-(&#39;Deepika&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
-(&#39;Jerry&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
-(&#39;Angelina&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
-(&#39;Selena&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;James Hamilton&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Leonard Martin&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Ryan Guzman&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Elizabeth Valencia DDS&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Lauren Zhang&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Selena Reed&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Alexander Johnson&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Alan Mendez&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Wendy Arnold&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Julie Kelly&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Gregory Rivera&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Michael Roberts&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Heather Meyer&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;David Bryant&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Denise Turner MD&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;John Crawford&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Robert Beck&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Christopher Chavez&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Kevin Marshall&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Randy Johnson&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Jose Thomas&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Sydney Brooks&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Luis Jones&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Virginia Wilson&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Jonathan King&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Jennifer Hernandez&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Erica Palmer&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Christopher Glover&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Jennifer Mack&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Daniel Jones&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Sara Gray&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Felicia Hickman&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Jonathan Little&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Melvin Cohen&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Jacqueline Estrada&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Kenneth Allen&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Patricia Moore&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Richard Mitchell&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Jane Foster&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Maria Terry&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Patricia Johnson&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Ian Lewis&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Zachary Burke&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Mckenzie Graham&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Brian Joseph&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Laura Smith&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Debra Turner&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Michael Jones&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Jeremy Hart&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Jenna Sanders&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Cheryl Torres&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Tim Long&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Tina Morris&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Johnny Hobbs&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Timothy Reynolds&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Susan Jennings&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Joy Bell&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Frank Jones&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Todd Stanley&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Jason Thomas&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Nicole Brown&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Michelle Walker&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Tamara Hart&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Andrew Schroeder&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Michelle Simmons&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Sarah Fischer&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Anna Knapp&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Megan Heath&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Jennifer Scott&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Anne Kim&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Norma Cox&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Terry Decker&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Daniel Romero&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Chase Davis&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Jim Williams&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Scott Santana&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Marc Hale&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Douglas Smith&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Joseph Aguirre&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Leah Allen&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Joshua Davis&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Victoria Richardson&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Tyler Wade&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Eileen Hughes&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Sherry Banks&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Kylie Matthews&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Robert Carroll&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Matthew Evans&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Dawn Bishop&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Carrie Garcia&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Rita Lyons&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Alan Young&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(&#39;Alan Montgomery&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(&#39;Keith Powers&#39;, 0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(&#39;Jordan Rodriguez&#39;, 0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Briana Fisher&#39;, 0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(&#39;Xavier Ramos&#39;, 0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(&#39;Austin Rios&#39;, 0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(&#39;Donna Taylor&#39;, 0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(&#39;Maria Garcia&#39;, 0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
 
 Table 2: Post_City Data
-(0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
-(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
-(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
 (0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
-(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
-(0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
-(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
-(0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
-(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
-(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
-(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
-(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
-(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
-(0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
-(0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
 (0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, -1e-06, 0.0, 0.0, 0.0, 8e-06, -3e-06, -0.205, -0.23600000000000002, 0.95)
+(0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
 (0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
-(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
-(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(0.0, -2e-06, 2e-06, 0.0, -1e-06, 8e-06, 1.2e-05, 0.28, -0.44, 1.17, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, 1e-06, -1e-06, -1e-06, -2e-06, 1e-06, -1.1e-05, -0.301, 0.96, 0.179)
+(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 0.0, 1e-06, -1e-06, -7e-06, 5e-06, 1.2e-05, 0.457, 1.49, 1.24)
+(0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
+(0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(0.0, -1e-06, 0.0, 0.0, 2e-06, 6e-06, -9e-06, -0.424, -0.6579999999999999, 0.485, 0.0, 1e-06, 0.0, -1e-06, -5e-06, 0.0, 7e-06, 0.324, 1.28, 0.47200000000000003)
+(0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(0.0, -2e-06, 2e-06, 0.0, -3e-06, 5e-06, 2.4e-05, 0.733, -0.16899999999999998, 1.06, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
+(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
 (0.0, -1e-06, 1e-06, 0.0, -4e-06, 5e-06, 1.4999999999999999e-05, 0.478, 0.431, 1.07, 0.0, 1e-06, 0.0, -1e-06, -4e-06, -1e-06, 3e-06, 0.215, 1.22, 0.192)
-(0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, 0.0, -1e-06, 0.0, 0.0, -2e-06, 9e-06, 1e-06, -0.0251, 0.397, 1.26)
-(0.0, -1e-06, 0.0, 0.0, -1e-06, 1.1e-05, -4e-06, -0.252, 0.00328, 1.39, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
+(0.0, 0.0, -2e-06, 0.0, -1e-06, 6e-06, -2.2e-05, -0.736, 0.625, 0.428, 0.0, -2e-06, 1e-06, 0.0, 0.0, 8e-06, 2e-06, -0.0689, -0.315, 1.06)
 
 Table 3: Em_Post_Name Data
 (0.0, -1e-06, 1e-06, 0.0, -1e-06, 6e-06, 1.2e-05, 0.32, -0.31, 0.966, &#39;engineer&#39;)
@@ -13558,13 +13681,13 @@ Table 4: Em_City_Name Data
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;position_city_database_with_embeddings.db&quot;</span><span class="p">)</span> 
 <span class="n">crsr</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> 
 
-
+<span class="c1">#This function is present in python program file, due to location issues I have maintained one copy here as well</span>
 <span class="k">def</span> <span class="nf">sel_func_post</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">threshold</span><span class="p">):</span>
   <span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10 from em_post_name where post =&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span><span class="k">q</span>)
   <span class="n">q_vect</span> <span class="o">=</span> <span class="n">crsr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
@@ -13604,7 +13727,7 @@ Table 4: Em_City_Name Data
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[7]:</div>
+    <div class="prompt output_prompt">Out[14]:</div>
 
 
 
@@ -13642,10 +13765,11 @@ Table 4: Em_City_Name Data
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sel_func_city</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">threshold</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This function is present in python program file, due to location issues I have maintained one copy here as well</span>
+<span class="k">def</span> <span class="nf">sel_func_city</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">threshold</span><span class="p">):</span>
   <span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10 from em_city_name where city =&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span><span class="k">q</span>)
   <span class="n">q_vect</span> <span class="o">=</span> <span class="n">crsr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
   <span class="n">crsr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10,city from em_city_name&quot;</span><span class="p">)</span>
@@ -13684,7 +13808,7 @@ Table 4: Em_City_Name Data
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[8]:</div>
+    <div class="prompt output_prompt">Out[15]:</div>
 
 
 
@@ -13719,7 +13843,7 @@ Table 4: Em_City_Name Data
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;position_city_database_with_embeddings.db&quot;</span><span class="p">)</span> 
@@ -13740,7 +13864,7 @@ Table 4: Em_City_Name Data
 
 <span class="c1"># ************* Join table query *************</span>
 
-<span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;SELECT b.name, d.post, c.city </span><span class="se">\</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;SELECT b.NAME, d.post, c.city </span><span class="se">\</span>
 <span class="s1">FROM em_post_name d, em_city_name c, post_city a </span><span class="se">\</span>
 <span class="s1">INNER JOIN name_post_city b </span><span class="se">\</span>
 <span class="s1">ON a.ci1 = b.ci1 AND </span><span class="se">\</span>
@@ -13815,20 +13939,370 @@ Table 4: Em_City_Name Data
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(&#39;Tom&#39;, &#39;manager&#39;, &#39;victoria&#39;)
-(&#39;Tom&#39;, &#39;developer&#39;, &#39;victoria&#39;)
-(&#39;Sita&#39;, &#39;ceo&#39;, &#39;toronto&#39;)
-(&#39;Alexa&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
-(&#39;Bush&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
-(&#39;Henry&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
-(&#39;Jerry&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
-(&#39;Ram&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
-(&#39;Sita&#39;, &#39;developer&#39;, &#39;toronto&#39;)
-(&#39;Alexa&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
-(&#39;Bush&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
-(&#39;Henry&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
-(&#39;Jerry&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
-(&#39;Ram&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+<pre>(&#39;Alan Young&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Alexander Johnson&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Andrew Schroeder&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Brian Joseph&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Daniel Jones&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;David Bryant&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Dawn Bishop&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Eileen Hughes&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Erica Palmer&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Ian Lewis&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Joy Bell&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Marc Hale&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Robert Beck&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Susan Jennings&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Chase Davis&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Gregory Rivera&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;James Hamilton&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Jason Thomas&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Jennifer Mack&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;John Crawford&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Jonathan King&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Keith Powers&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Michelle Simmons&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Patricia Johnson&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Sherry Banks&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Tina Morris&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Tyler Wade&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Zachary Burke&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Chase Davis&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Gregory Rivera&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;James Hamilton&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Jason Thomas&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Jennifer Mack&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;John Crawford&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Jonathan King&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Keith Powers&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Michelle Simmons&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Patricia Johnson&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Sherry Banks&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Tina Morris&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Tyler Wade&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Zachary Burke&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Alan Young&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Alexander Johnson&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Andrew Schroeder&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Brian Joseph&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Daniel Jones&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;David Bryant&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Dawn Bishop&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Eileen Hughes&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Erica Palmer&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Ian Lewis&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Joy Bell&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Marc Hale&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Robert Beck&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Susan Jennings&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Chase Davis&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;Gregory Rivera&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;James Hamilton&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;Jason Thomas&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;Jennifer Mack&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;John Crawford&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;Jonathan King&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;Keith Powers&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;Michelle Simmons&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;Patricia Johnson&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;Sherry Banks&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;Tina Morris&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;Tyler Wade&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;Zachary Burke&#39;, &#39;engineer&#39;, &#39;victoria&#39;)
+(&#39;Alan Young&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Alexander Johnson&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Andrew Schroeder&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Brian Joseph&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Daniel Jones&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;David Bryant&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Dawn Bishop&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Eileen Hughes&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Erica Palmer&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Ian Lewis&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Joy Bell&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Marc Hale&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Robert Beck&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Susan Jennings&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Alan Young&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Alexander Johnson&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Andrew Schroeder&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Brian Joseph&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Daniel Jones&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;David Bryant&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Dawn Bishop&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Eileen Hughes&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Erica Palmer&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Ian Lewis&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Joy Bell&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Marc Hale&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Robert Beck&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Susan Jennings&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Anna Knapp&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Briana Fisher&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Carrie Garcia&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Debra Turner&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Johnny Hobbs&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Joshua Davis&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Kevin Marshall&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Leonard Martin&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Maria Terry&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Melvin Cohen&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Michael Roberts&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Sydney Brooks&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Tamara Hart&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Terry Decker&#39;, &#39;engineer&#39;, &#39;vancouver&#39;)
+(&#39;Alan Young&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Alexander Johnson&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Andrew Schroeder&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Brian Joseph&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Daniel Jones&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;David Bryant&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Dawn Bishop&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Eileen Hughes&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Erica Palmer&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Ian Lewis&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Joy Bell&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Marc Hale&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Robert Beck&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Susan Jennings&#39;, &#39;engineer&#39;, &#39;toronto&#39;)
+(&#39;Alan Young&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Alexander Johnson&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Andrew Schroeder&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Brian Joseph&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Daniel Jones&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;David Bryant&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Dawn Bishop&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Eileen Hughes&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Erica Palmer&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Ian Lewis&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Joy Bell&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Marc Hale&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Robert Beck&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Susan Jennings&#39;, &#39;developer&#39;, &#39;toronto&#39;)
+(&#39;Anna Knapp&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Briana Fisher&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Carrie Garcia&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Debra Turner&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Johnny Hobbs&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Joshua Davis&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Kevin Marshall&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Leonard Martin&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Maria Terry&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Melvin Cohen&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Michael Roberts&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Sydney Brooks&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Tamara Hart&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Terry Decker&#39;, &#39;ceo&#39;, &#39;vancouver&#39;)
+(&#39;Chase Davis&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Gregory Rivera&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;James Hamilton&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Jason Thomas&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Jennifer Mack&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;John Crawford&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Jonathan King&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Keith Powers&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Michelle Simmons&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Patricia Johnson&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Sherry Banks&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Tina Morris&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Tyler Wade&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Zachary Burke&#39;, &#39;waiter&#39;, &#39;victoria&#39;)
+(&#39;Alan Young&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Alexander Johnson&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Andrew Schroeder&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Brian Joseph&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Daniel Jones&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;David Bryant&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Dawn Bishop&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Eileen Hughes&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Erica Palmer&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Ian Lewis&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Joy Bell&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Marc Hale&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Robert Beck&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Susan Jennings&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Alan Young&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Alexander Johnson&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Andrew Schroeder&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Brian Joseph&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Daniel Jones&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;David Bryant&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Dawn Bishop&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Eileen Hughes&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Erica Palmer&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Ian Lewis&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Joy Bell&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Marc Hale&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Robert Beck&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Susan Jennings&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Chase Davis&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Gregory Rivera&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;James Hamilton&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Jason Thomas&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Jennifer Mack&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;John Crawford&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Jonathan King&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Keith Powers&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Michelle Simmons&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Patricia Johnson&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Sherry Banks&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Tina Morris&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Tyler Wade&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Zachary Burke&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Chase Davis&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;Gregory Rivera&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;James Hamilton&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;Jason Thomas&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;Jennifer Mack&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;John Crawford&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;Jonathan King&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;Keith Powers&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;Michelle Simmons&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;Patricia Johnson&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;Sherry Banks&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;Tina Morris&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;Tyler Wade&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;Zachary Burke&#39;, &#39;manager&#39;, &#39;victoria&#39;)
+(&#39;Alan Young&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Alexander Johnson&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Andrew Schroeder&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Brian Joseph&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Daniel Jones&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;David Bryant&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Dawn Bishop&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Eileen Hughes&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Erica Palmer&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Ian Lewis&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Joy Bell&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Marc Hale&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Robert Beck&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Susan Jennings&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Chase Davis&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Gregory Rivera&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;James Hamilton&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Jason Thomas&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Jennifer Mack&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;John Crawford&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Jonathan King&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Keith Powers&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Michelle Simmons&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Patricia Johnson&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Sherry Banks&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Tina Morris&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Tyler Wade&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Zachary Burke&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Chase Davis&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Gregory Rivera&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;James Hamilton&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Jason Thomas&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Jennifer Mack&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;John Crawford&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Jonathan King&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Keith Powers&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Michelle Simmons&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Patricia Johnson&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Sherry Banks&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Tina Morris&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Tyler Wade&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Zachary Burke&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Anna Knapp&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Briana Fisher&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Carrie Garcia&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Debra Turner&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Johnny Hobbs&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Joshua Davis&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Kevin Marshall&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Leonard Martin&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Maria Terry&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Melvin Cohen&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Michael Roberts&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Sydney Brooks&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Tamara Hart&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Terry Decker&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Alan Young&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Alexander Johnson&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Andrew Schroeder&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Brian Joseph&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Daniel Jones&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;David Bryant&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Dawn Bishop&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Eileen Hughes&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Erica Palmer&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Ian Lewis&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Joy Bell&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Marc Hale&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Robert Beck&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Susan Jennings&#39;, &#39;cto&#39;, &#39;toronto&#39;)
+(&#39;Chase Davis&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Gregory Rivera&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;James Hamilton&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Jason Thomas&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Jennifer Mack&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;John Crawford&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Jonathan King&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Keith Powers&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Michelle Simmons&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Patricia Johnson&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Sherry Banks&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Tina Morris&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Tyler Wade&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Zachary Burke&#39;, &#39;ceo&#39;, &#39;victoria&#39;)
+(&#39;Chase Davis&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Gregory Rivera&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;James Hamilton&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Jason Thomas&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Jennifer Mack&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;John Crawford&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Jonathan King&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Keith Powers&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Michelle Simmons&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Patricia Johnson&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Sherry Banks&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Tina Morris&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Tyler Wade&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Zachary Burke&#39;, &#39;developer&#39;, &#39;victoria&#39;)
+(&#39;Anna Knapp&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Briana Fisher&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Carrie Garcia&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Debra Turner&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Johnny Hobbs&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Joshua Davis&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Kevin Marshall&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Leonard Martin&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Maria Terry&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Melvin Cohen&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Michael Roberts&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Sydney Brooks&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Tamara Hart&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Terry Decker&#39;, &#39;manager&#39;, &#39;vancouver&#39;)
+(&#39;Alan Young&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Alexander Johnson&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Andrew Schroeder&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Brian Joseph&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Daniel Jones&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;David Bryant&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Dawn Bishop&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Eileen Hughes&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Erica Palmer&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Ian Lewis&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Joy Bell&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Marc Hale&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Robert Beck&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Susan Jennings&#39;, &#39;coo&#39;, &#39;toronto&#39;)
+(&#39;Anna Knapp&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Briana Fisher&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Carrie Garcia&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Debra Turner&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Johnny Hobbs&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Joshua Davis&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Kevin Marshall&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Leonard Martin&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Maria Terry&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Melvin Cohen&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Michael Roberts&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Sydney Brooks&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Tamara Hart&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
+(&#39;Terry Decker&#39;, &#39;developer&#39;, &#39;vancouver&#39;)
 </pre>
 </div>
 </div>
