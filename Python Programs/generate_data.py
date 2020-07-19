@@ -5,8 +5,7 @@ import numpy as np
 from itertools import repeat
 from faker import Faker
 from sklearn.utils import shuffle
-
-#Generating data
+#Generating Data
 def get_data(n,j):
   #Getting fake names
   fake = Faker()
@@ -16,16 +15,16 @@ def get_data(n,j):
   #Dataframe with Vectors for respective posts and post
   data = pd.read_csv (r'/content/drive/My Drive/NLP_Data/table3_vectors_for_posts.csv')   
   orig_post_df = pd.DataFrame(data, columns= ['pi1','pi2','pi3','pi4','pi5','pi6','pi7','pi8','pi9','pi10','post'])
-  post_df = pd.DataFrame(data, columns= ['pi1','pi2','pi3','pi4','pi5','pi6','pi7','pi8','pi9','pi10'])
+  post_df = orig_post_df.iloc[:,:]
   #print(df3)
 
   #Dataframe with Vectors for respective cities and city
   data = pd.read_csv (r'/content/drive/My Drive/NLP_Data/table4_vectors_for_cities.csv')   
   orig_city_df = pd.DataFrame(data, columns= ['ci1','ci2','ci3','ci4','ci5','ci6','ci7','ci8','ci9','ci10','city'])
-  city_df = pd.DataFrame(data, columns= ['ci1','ci2','ci3','ci4','ci5','ci6','ci7','ci8','ci9','ci10'])
+  city_df = orig_city_df.iloc[:,:]
   #print(df4)
 
-  #Shuffling and storing the data n times
+    #Shuffling and storing the data n times
   new_city_df = city_df
   new_post_df = post_df
 
@@ -36,27 +35,47 @@ def get_data(n,j):
     new_post_df = pd.concat([new_post_df, post_df], axis=0)
 
   #Getting n number of data
+  normal_city_df = new_city_df.iloc[:,10]
+  normal_post_df = new_post_df.iloc[:,10]
+  n_city_df = new_city_df.iloc[:,:-1]
+  n_post_df = new_post_df.iloc[:,:-1]
+
   n_city_df= new_city_df.head(n)
   n_post_df= new_post_df.head(n)
+  normal_city_df= normal_city_df.head(n)
+  normal_post_df= normal_post_df.head(n)
 
   #Resetting index
   n_city_df.reset_index(drop=True, inplace=True)
   n_post_df.reset_index(drop=True, inplace=True)
+  normal_city_df.reset_index(drop=True, inplace=True)
+  normal_post_df.reset_index(drop=True, inplace=True)
 
   #Dataframe ready for table 1 with name, post and city word embeddings
   df1 = pd.concat([name_df,n_post_df,n_city_df], axis=1)
+  normal_df1 = pd.concat([name_df,normal_post_df,normal_city_df], axis=1)
   #print(df1)
 
   #Shuffling and resetting index for table 2 
-  new_city_df = shuffle(n_city_df)
-  new_post_df = shuffle(n_post_df)
+  new_city_df = shuffle(new_city_df)
+  new_post_df = shuffle(new_post_df)
+
+  normal2_city_df = new_city_df.iloc[:,10]
+  normal2_post_df = new_post_df.iloc[:,10]
+  new_city_df = new_city_df.iloc[:,:-1]
+  new_post_df = new_post_df.iloc[:,:-1]
+
   new_city_df= new_city_df.head(j)
   new_post_df= new_post_df.head(j)
+  normal2_city_df= normal_city_df.head(j)
+  normal2_post_df= normal_post_df.head(j)
+
   new_city_df.reset_index(drop=True, inplace=True)
   new_post_df.reset_index(drop=True, inplace=True)
-  
+
   #Dataframe ready for table 2 with post and city
   df2 = pd.concat([new_post_df,new_city_df], axis=1)
+  normal_df2 = pd.concat([normal2_post_df,normal2_city_df], axis=1)
   #print(df2)
 
   #Creating database
@@ -72,11 +91,28 @@ def get_data(n,j):
   for row in crsr.fetchall():
       print (row)
 
+  #Creating normal table1 with name,post, and city
+  crsr.execute('CREATE TABLE normal_name_post_city (NAME nvarchar(50),pi1 float,pi2 float,pi3 float,pi4 float,pi5 float,pi6 float,pi7 float,pi8 float,pi9 float,pi10 float, ci1 float,ci2 float,ci3 float,ci4 float,ci5 float,ci6 float,ci7 float,ci8 float,ci9 float,ci10 float, FOREIGN KEY (ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10) REFERENCES em_city_name(ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10), FOREIGN KEY (pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10) REFERENCES em_post_city(pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10))')
+  normal_df1.to_sql('normal_name_post_city', connection, if_exists='replace', index = False)
+  crsr.execute('''SELECT * FROM normal_name_post_city''')
+  print("Normal Table 1: Normal_Name_Post_City Data")
+  for row in crsr.fetchall():
+      print (row)
+
   #Creating table2 with embeddings of post and embeddings of city
   crsr.execute('CREATE TABLE post_city (pi1 float,pi2 float,pi3 float,pi4 float,pi5 float,pi6 float,pi7 float,pi8 float,pi9 float,pi10 float, ci1 float,ci2 float,ci3 float,ci4 float,ci5 float,ci6 float,ci7 float,ci8 float,ci9 float,ci10 float, FOREIGN KEY (ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10) REFERENCES em_city_name(ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10), FOREIGN KEY (pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10) REFERENCES em_post_city(pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10))')
   df2.to_sql('post_city', connection, if_exists='replace', index = False)
   print("\nTable 2: Post_City Data")
   crsr.execute('''SELECT * FROM post_city''')
+  for row in crsr.fetchall():
+      print (row)
+  
+
+  #Creating normal table2 with post and city
+  crsr.execute('CREATE TABLE normal_post_city (pi1 float,pi2 float,pi3 float,pi4 float,pi5 float,pi6 float,pi7 float,pi8 float,pi9 float,pi10 float, ci1 float,ci2 float,ci3 float,ci4 float,ci5 float,ci6 float,ci7 float,ci8 float,ci9 float,ci10 float, FOREIGN KEY (ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10) REFERENCES em_city_name(ci1,ci2,ci3,ci4,ci5,ci6,ci7,ci8,ci9,ci10), FOREIGN KEY (pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10) REFERENCES em_post_city(pi1,pi2,pi3,pi4,pi5,pi6,pi7,pi8,pi9,pi10))')
+  normal_df2.to_sql('normal_post_city', connection, if_exists='replace', index = False)
+  print("\nNormal Table 2: Normal_Post_City Data")
+  crsr.execute('''SELECT * FROM normal_post_city''')
   for row in crsr.fetchall():
       print (row)
 
@@ -108,4 +144,4 @@ def get_data(n,j):
   #crsr.execute('DROP TABLE em_city_name')
   #connection.commit()  
 
-#get_data(100,50)
+#get_data(10000,5000)
