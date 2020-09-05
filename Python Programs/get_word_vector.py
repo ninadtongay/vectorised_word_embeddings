@@ -2,7 +2,7 @@ import io
 import numpy as np
 def get_vector(given_word):
   Glove = {}
-  with io.open('/content/drive/My Drive/NLP_Data/pca_embed2.txt', encoding='utf8') as f:
+  with io.open('pca_embed2.txt', encoding='utf8') as f:
   #f = open('/content/drive/My Drive/NLP_Data/pca_embed2.txt')
 
       #print("Loading Glove vectors.")

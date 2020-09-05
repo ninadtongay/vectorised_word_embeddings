@@ -13,13 +13,13 @@ def get_data(n,j):
   name_df = pd.DataFrame((name_df),columns=['name'])
 
   #Dataframe with Vectors for respective posts and post
-  data = pd.read_csv (r'/content/drive/My Drive/NLP_Data/table3_vectors_for_posts.csv')   
+  data = pd.read_csv (r'csv/table3_vectors_for_posts.csv')   
   orig_post_df = pd.DataFrame(data, columns= ['pi1','pi2','pi3','pi4','pi5','pi6','pi7','pi8','pi9','pi10','post'])
   post_df = orig_post_df.iloc[:,:]
   #print(df3)
 
   #Dataframe with Vectors for respective cities and city
-  data = pd.read_csv (r'/content/drive/My Drive/NLP_Data/table4_vectors_for_cities.csv')   
+  data = pd.read_csv (r'csv/table4_vectors_for_cities.csv')
   orig_city_df = pd.DataFrame(data, columns= ['ci1','ci2','ci3','ci4','ci5','ci6','ci7','ci8','ci9','ci10','city'])
   city_df = orig_city_df.iloc[:,:]
   #print(df4)

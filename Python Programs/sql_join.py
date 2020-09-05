@@ -1,3 +1,6 @@
+import sqlite3
+from itertools import repeat
+
 connection = sqlite3.connect("position_city_database_with_embeddings.db") 
 crsr = connection.cursor() 
 def makeqmarks(i):
