@@ -49,10 +49,10 @@ Research in NLP have leapt decades ahead of this in terms of representing text a
 
 Tasks involved:
 1. A framework to generate dummy data for testing purposes.
-  a. Using Glove pre-trained word embeddings for getting word embeddings.
-  b. Reducing the word vector dimensions(to 10 dimensions) using PCA.
-  c. Converting city names to word embeddings and storing them in the database.
-  d. Generating 6 tables, which will allow us to compare both the traditional and our research-based approach.
+a. Using Glove pre-trained word embeddings for getting word embeddings.
+b. Reducing the word vector dimensions(to 10 dimensions) using PCA.
+c. Converting city names to word embeddings and storing them in the database.
+d. Generating 6 tables, which will allow us to compare both the traditional and our research-based approach.
 2. Implementing cosine similarity function
 3. Methods for calculating cosine similarity on SQL table for `Job Posts` and `Cities`.
 4. Methods to join two tables based on `Posts` or `Cities` using both approaches.
