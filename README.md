@@ -48,19 +48,19 @@ There are a host of problems with both approaches, however. The most obvious is 
 Research in NLP have leapt decades ahead of this in terms of representing text and identifying similarity based on both semantics and syntax. If these NLP concepts were integrated directly into the database, one could answer a query like this effectively without requiring an analyst to sanitise all the data by hand. In this project, that is exactly what we have achieved.
 
 Tasks involved:
-1. A framework to generate dummy data for testing purpose.
+1. A framework to generate dummy data for testing purposes.
   a. Using Glove pre-trained word embeddings for getting word embeddings.
   b. Reducing the word vector dimensions(to 10 dimensions) using PCA.
   c. Converting city names to word embeddings and storing them in the database.
-  d. Generating 6 tables, which will allow us to compare both the traditional and our research based approach.
+  d. Generating 6 tables, which will allow us to compare both the traditional and our research-based approach.
 2. Implementing cosine similarity function
 3. Methods for calculating cosine similarity on SQL table for `Job Posts` and `Cities`.
 4. Methods to join two tables based on `Posts` or `Cities` using both approaches.
-5. Framework to evaluate:
+5. A framework to evaluate:
 a. Accuracy
 b. Execution time
 c. F1 Score
-d. Difference in execution time between both approaches
+d. The difference in execution time between both approaches
 
 ------------------------------------
 
@@ -102,7 +102,7 @@ Voila! The python flask code is now up and running.
 While implementing python flask method, these files are present in `source/app/business logic` folder
 
 #### Jupyter Notebook
-This notebook consists of the code to create SQL database, uses all the python functions mentioned above to carry out various operations, and SQL Query to join tables based on the similarity between word vectors.
+This notebook consists of the code to create an SQL database, uses all the python functions mentioned above to carry out various operations, and SQL Query to join tables based on the similarity between word vectors.
 
 ------------------------------------
 ### Result
@@ -124,13 +124,13 @@ This file shows the time difference between various data sample in all the menti
 
 ### Future Scope
 - Improving Framework for evaluating SQL queries.
-- Implementing words with space in between them(New York, New Delhi,etc)
+- Implementing words with space in between them(New York, New Delhi, etc)
 - Training our own model for word embeddings.
 
 ------------------------------------
 
 ### Contributors ✨
-Thanks goes to Dr.Sean Chester who mentored me throughout this project and guided through it, without which this would not have been possible. :
+Thanks go to Dr.Sean Chester who mentored me throughout this project and guided through it, without which this would not have been possible. :
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -150,4 +150,3 @@ Contributions are always welcome!
 
 # License
 
-[GNU General Public License version 3](https://opensource.org/licenses/GPL-3.0)
