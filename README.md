@@ -109,8 +109,8 @@ pip3 install -r requirements.txt
 ```
 python3 run.py
 ```
-Voila! The python flask code is now up and running.
-*Select enter Role as `Admin`* 
+Voila! The python flask code is now up and running.<br>
+*While registering as new user, enter Role as `Admin`* 
 
 
 #### Google Colab
