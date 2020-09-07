@@ -55,18 +55,18 @@ Research in NLP have leapt decades ahead of this in terms of representing text a
 ### Objectives
 
 
-1. A framework to generate dummy data for testing purposes which would include:
-a. Using <a href="https://nlp.stanford.edu/pubs/glove.pdf">Glove</a> pre-trained word.
-b. Reducing the word vector dimensions(to 10 dimensions) using PCA.
-c. Converting city names to word embeddings and storing them in the database.
+1. A framework to generate dummy data for testing purposes which would include:<br>
+a. Using <a href="https://nlp.stanford.edu/pubs/glove.pdf">Glove</a> pre-trained word embeddings.<br>
+b. Reducing the word vector dimensions(to 10 dimensions) using PCA.<br>
+c. Converting city names to word embeddings and storing them in the database.<br>
 d. Generating 6 tables, which will allow us to compare both the traditional and our research-based approach.
 2. Implementing cosine similarity function
 3. Methods for calculating cosine similarity on SQL table for `Job Posts` and `Cities`.
 4. Methods to join two tables based on `Posts` or `Cities` using both approaches.
-5. A framework to evaluate:
-a. Accuracy.
-b. Execution time.
-c. F1 Score.
+5. A framework to evaluate:<br>
+a. Accuracy.<br>
+b. Execution time.<br>
+c. F1 Score.<br>
 d. The difference in execution time between both approaches.
 
 *Detailed description of code is provided in `NLP_Database_Fusion_Single_Words.ipynb` as comments* 
