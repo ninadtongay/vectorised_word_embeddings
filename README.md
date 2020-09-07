@@ -76,11 +76,11 @@ d. The difference in execution time between both approaches.
 
 1. Table1: Consists of persons name, embeddings of post, and embeddings of city.
 ![Table 1](/images/table1.png)
-2. Normal Table1: Consists of  name, post, and city.
+2. Normal Table1: Consists of  name, post, and city.<br>
 ![Normal Table 1](/images/ntable1.png)
 3. Table2: Consists of embeddings of post and embeddings of city.
 ![Table 2](/images/table2.png)
-4. Normal Table2: Consists of post and city.
+4. Normal Table2: Consists of post and city.<br>
 ![Normal Table 2](/images/ntable2.png)
 5. Table3: Consists of embeddings of post and name of posts.
 ![Table 3](/images/table3.png)
