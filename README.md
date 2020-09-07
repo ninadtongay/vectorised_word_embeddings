@@ -1,5 +1,6 @@
 
 
+
 # Vectorised Word Embeddings - Unique way of involving NLP into DB
 <p align="center">
   <img src="https://img.shields.io/github/last-commit/ninadtongay/vectorised_word_embeddings?style=flat-square"
@@ -17,6 +18,9 @@
 
 - [Introduction](#introduction)
 - [Research Problem Statement](#research-problem-statement)
+- [Objectives](#objectives)
+- [Versions](#versions)
+- [Table Description](#table-description)
 - [Installation](#installation)
     - [Python Flask](#python-flask)
     - [Google Colab](#google-colab)
@@ -47,9 +51,12 @@ There are a host of problems with both approaches, however. The most obvious is 
 
 Research in NLP have leapt decades ahead of this in terms of representing text and identifying similarity based on both semantics and syntax. If these NLP concepts were integrated directly into the database, one could answer a query like this effectively without requiring an analyst to sanitise all the data by hand. In this project, that is exactly what we have achieved.
 
-Tasks involved:
-1. A framework to generate dummy data for testing purposes.
-a. Using Glove pre-trained word embeddings for getting word embeddings.
+------------------------------------
+### Objectives
+
+
+1. A framework to generate dummy data for testing purposes which would include:
+a. Using <a href="https://nlp.stanford.edu/pubs/glove.pdf">Glove</a> pre-trained word.
 b. Reducing the word vector dimensions(to 10 dimensions) using PCA.
 c. Converting city names to word embeddings and storing them in the database.
 d. Generating 6 tables, which will allow us to compare both the traditional and our research-based approach.
@@ -57,16 +64,38 @@ d. Generating 6 tables, which will allow us to compare both the traditional and 
 3. Methods for calculating cosine similarity on SQL table for `Job Posts` and `Cities`.
 4. Methods to join two tables based on `Posts` or `Cities` using both approaches.
 5. A framework to evaluate:
-a. Accuracy
-b. Execution time
-c. F1 Score
-d. The difference in execution time between both approaches
+a. Accuracy.
+b. Execution time.
+c. F1 Score.
+d. The difference in execution time between both approaches.
+
+*Detailed description of code is provided in `NLP_Database_Fusion_Single_Words.ipynb` as comments* 
+
+------------------------------------
+### Table Description
+
+1. Table1: Consists of persons name, embeddings of post, and embeddings of city.
+![Table 1](/images/table1.png)
+2. Normal Table1: Consists of  name, post, and city.
+![Normal Table 1](/images/ntable1.png)
+3. Table2: Consists of embeddings of post and embeddings of city.
+![Table 2](/images/table2.png)
+4. Normal Table2: Consists of post and city.
+![Normal Table 2](/images/ntable2.png)
+5. Table3: Consists of embeddings of post and name of posts.
+![Table 3](/images/table3.png)
+6. Table4: Consists of embeddings of city and name of cities.
+![Table 4](/images/table4.png)
+
+------------------------------------
+### Versions
+1. `Approach 1` : In this version we will measure the time required to execute the join query, without any overhead to improve the readability of the output (*Good for research purpose*). This approach is provided with both Google Colab / Jupyter Notebook and Python Flask App.
+2. `Approach 2`: This is similar to approach 1, but this has additional overhead which helps in readibility of the output. This approach is provided with Google Colab / Jupyter notebook.
 
 ------------------------------------
 
 ### Installation
-<a name="installation" ></a>
-
+*Installation for both approaches is similar*
 This project can be installed using two different methods:
 1. Using [Python Flask](#python-flask)
 2. Using [Google Colab](#google-colab)
@@ -83,8 +112,8 @@ python3 run.py
 Voila! The python flask code is now up and running.
 
 #### Google Colab
-1. To execute this code on Google Colab / Jupyter Notebook, open `NLP_Database_Fusion_Single_Words.ipynb` on your environment.
-2. Update the location used to access the database, word embeddings, and CSV files according to your local machine.
+1. To execute this code on Google Colab / Jupyter Notebook, open `NLP_Database_Fusion_Single_Words.ipynb` (file name will also be having `approach` mentioned, use the one best suited for your needs)on your environment.
+2. Update the location(address) used to access the database, word embeddings, and CSV files according to your local machine.
 
 ------------------------------------
 
@@ -99,10 +128,10 @@ Voila! The python flask code is now up and running.
 - `accuracy.py`: Used to check the accuracy obtained while getting similar words through the pre-trained model.
 - `vecnlp.py`(*Only avaiable when using python flask approach*): Used to accept the size of the table, select either city/post to find cosine similarity accordingly, threshold and expected output. Once executed, it will provide model execution time, regular approach execution time, accuracy and F1 score.
 
-While implementing python flask method, these files are present in `source/app/business logic` folder
+While implementing python flask method, these files are present in `source/app/business logic` folder.
 
 #### Jupyter Notebook
-This notebook consists of the code to create an SQL database, uses all the python functions mentioned above to carry out various operations, and SQL Query to join tables based on the similarity between word vectors.
+This notebook consists of all the above mentioned python files in sequence.
 
 ------------------------------------
 ### Result
@@ -115,10 +144,14 @@ a.Implemented same (`Approach 1`) with a UI, built using Python Flask.
 3. In this approach, we have added extra computations for better readability (displaying city names and posts after joining the tables), these computations act as overhead and reduce efficiency of our code(This is `Approach 2`).
 ![Approach 2 Google Colab](/images/approach2.png)
 We compare both of the above approaches with the traditional method of joining SQL tables and the results were quite amazing.
-![Regular Approach](/images/approach2.png)
-The ratio of time difference between Approach 1 to Approach 2 approximately is : 3.67 (which changes according to the database and situation)
+![Regular Approach](/images/Regular_Approach.png)
 
-This file shows the time difference between various data sample in all the mentioned approaches.
+The ratio of time difference between `Approach 1` to `Approach 2` approximately is : 3.67 (which changes according to the database and required output)
+
+Following image shows the time difference between various data sample in all the mentioned approaches.
+![Time difference](/images/td.png)
+*Data size refers to number of rows*
+*Time is measured in seconds*
 
 ------------------------------------
 
@@ -137,8 +170,8 @@ Thanks go to Dr.Sean Chester who mentored me throughout this project and guided 
 <!-- markdownlint-disable -->
 <table>
   <tr>
+      <td align="center"><a href=""><img src="https://avatars1.githubusercontent.com/u/18030768?s=460&u=99987bdaac58d0df47e02f14f953d497cc1abd50&v=4" width="100px;" alt=""/><br /><sub><b>Ninad Tongay</b></sub></a><br/></td>
     <td align="center"><a href="https://github.com/sean-chester"><img src="https://avatars0.githubusercontent.com/u/13118171?s=400&u=c410ad840806ccaadad50a4b65c87f3048c6f145&v=4" width="100px;" alt=""/><br /><sub><b>Dr. Sean Chester</b></sub></a><br /></td>
-    <td align="center"><a href=""><img src="https://avatars1.githubusercontent.com/u/18030768?s=460&u=99987bdaac58d0df47e02f14f953d497cc1abd50&v=4" width="100px;" alt=""/><br /><sub><b>Ninad Tongay</b></sub></a><br/></td>
   </tr>
 </table>
 
