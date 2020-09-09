@@ -5,12 +5,6 @@
 <p align="center">
   <img src="https://img.shields.io/github/last-commit/ninadtongay/vectorised_word_embeddings?style=flat-square"
          alt="GitHub last commit">
-  <a href="https://github.com/navendu-pottekkat/nsfw-filter/issues">
-  <img src="https://img.shields.io/github/issues/ninadtongay/vectorised_word_embeddings?style=flat-square&color=red"
-         alt="GitHub issues">
-  <a href="https://github.com/navendu-pottekkat/nsfw-filter/pulls">
-  <img src="https://img.shields.io/github/issues-pr/ninadtongay/vectorised_word_embeddings?style=flat-square&color=blue"
-         alt="GitHub pull requests">
   <img alt="Contributors" src="https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square" href="#contributors-">
   
 ------------------------------------
