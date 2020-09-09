@@ -1,0 +1,235 @@
+
+{% extends "layouts/default.html" %}
+
+{% block title %} Dashboard {% endblock title %}
+
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="panel-header bg-primary-gradient">
+      <div class="page-inner py-5">
+        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+          <div>
+            <h2 class="text-white pb-2 fw-bold">Dashboard</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-inner mt--5">
+      
+      <div class="row">
+        {% if current_user.role == 'admin': %}
+        <div class="col-md-6">
+          <div class="card">
+              <div class="card-header">
+                  <div class="card-title">Specifications</div>
+              </div>
+              <div class="card-body">
+                <div class="form-group form-group-default set-rows1">
+                  <label># of rows for table containing Name, Post and City</label>
+                  <input id="set-rows1" type="text" class="form-control" placeholder="Enter here">
+                </div>
+                <div class="form-group form-group-default set-rows2" hidden=true>
+                  <label># of rows for table containing Post and City</label>
+                  <input id="set-rows2" type="text" class="form-control" placeholder="Enter here">
+                </div>
+                <div class="form-group form-group-default city-post-select" hidden=true>
+                  <label for="defaultSelect">City / Post</label>
+                  <select class="form-control form-control" id="city-post-select">
+                      <option>Select</option>
+                      <option>City</option>
+                      <option>Post</option>
+                  </select>
+                </div>
+                <div class="form-group form-group-default city-select option-select" hidden=true>
+                  <label for="selectCity">City</label>
+                  <select class="form-control form-control" id="city-select">
+                      <option>select</option>
+                      <option>vancouver</option>
+                      <option>victoria</option>
+                      <option>toronto</option>
+                      <option>mumbai</option>
+                      <option>ottawa</option>
+                      <option>delhi</option>
+                      <option>pune</option>
+                  </select>
+                </div>
+                <div class="form-group form-group-default post-select option-select" hidden=true>
+                  <label for="selectPost">Post</label>
+                  <select class="form-control form-control" id="post-select">
+                    <option>select</option>  
+                    <option>developer</option>
+                    <option>engineer</option>
+                    <option>manager</option>
+                    <option>coo</option>
+                    <option>cto</option>
+                    <option>ceo</option>
+                    <option>waiter</option>
+                  </select>
+                </div>
+                <div class="form-group form-group-default set-threshold" hidden=true>
+                  <label>Set threshold between 0 - 1</label>
+                  <input id="set-threshold" type="text" class="form-control" placeholder="Enter here">
+                </div>
+                <div class="form-group expected-output-city" hidden=true>
+                  <label for="expectedOutputCity">Expected output</label>
+                  <select multiple class="form-control" id="expected-output-city">
+                    <option>vancouver</option>
+                    <option>victoria</option>
+                    <option>toronto</option>
+                    <option>mumbai</option>
+                    <option>ottawa</option>
+                    <option>delhi</option>
+                    <option>pune</option>
+                  </select>
+                </div>
+                <div class="form-group expected-output-post" hidden=true>
+                  <label for="expectedOutputPost">Expected output</label>
+                  <select multiple class="form-control" id="expected-output-post">
+                    <option>developer</option>
+                    <option>engineer</option>
+                    <option>manager</option>
+                    <option>coo</option>
+                    <option>cto</option>
+                    <option>ceo</option>
+                    <option>waiter</option>
+                  </select>
+                </div>
+                <button class="btn btn-success admin-operation" id="execute-button">Execute</button>
+              </div>
+          </div>
+        </div>        
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">Results</div>
+                
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive" style="overflow-y: scroll; height: 265px;">
+                  <label>Model execution time</label>
+                  <p id="model-time"></p>
+                  <label>Regular approach execution time</label>
+                  <p id="original-time"></p>
+                  <label>Time difference</label>
+                  <p id="time-difference"></p>
+                  <label>Accuracy</label>
+                  <p id="accuracy"></p>
+                  <label>F1 Score</label>
+                  <p id="f1_score"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+
+  <script src="/static/assets/js/demo.js"></script>
+  <script src="/static/assets/js/dashboard.js"></script>
+
+	<script>
+		Circles.create({
+			id:'circles-1',
+			radius:45,
+			value:60,
+			maxValue:100,
+			width:7,
+			text: 5,
+			colors:['#f1f1f1', '#FF9E27'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+
+		Circles.create({
+			id:'circles-2',
+			radius:45,
+			value:70,
+			maxValue:100,
+			width:7,
+			text: 36,
+			colors:['#f1f1f1', '#2BB930'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+
+		Circles.create({
+			id:'circles-3',
+			radius:45,
+			value:40,
+			maxValue:100,
+			width:7,
+			text: 12,
+			colors:['#f1f1f1', '#F25961'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+
+		var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
+
+		var mytotalIncomeChart = new Chart(totalIncomeChart, {
+			type: 'bar',
+			data: {
+				labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
+				datasets : [{
+					label: "Total Income",
+					backgroundColor: '#ff9e27',
+					borderColor: 'rgb(23, 125, 255)',
+					data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
+				}],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					display: false,
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							display: false //this will remove only the label
+						},
+						gridLines : {
+							drawBorder: false,
+							display : false
+						}
+					}],
+					xAxes : [ {
+						gridLines : {
+							drawBorder: false,
+							display : false
+						}
+					}]
+				},
+			}
+		});
+
+		$('#lineChart').sparkline([105,103,123,100,95,105,115], {
+			type: 'line',
+			height: '70',
+			width: '100%',
+			lineWidth: '2',
+			lineColor: '#ffa534',
+			fillColor: 'rgba(255, 165, 52, .14)'
+		});
+	</script>
+
+{% endblock javascripts %}
